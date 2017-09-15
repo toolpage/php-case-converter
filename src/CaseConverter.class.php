@@ -1,6 +1,6 @@
 <?php
 /**
- * Authentication plugin interface
+ * PHP Case Converter
  *
  * Copyright © 2017 Yves Sorge <yves.sorge@toolpage.org>
  * https://toolpage.org/
@@ -93,7 +93,7 @@ class CaseConverter {
 		$output = "";
 		$len = strlen ( $value );
 		$doCaps = true;
-		$pattern = "/^[\s".preg_quot ( "()[]{}=?!.:,-_+#~/", "/" )."]$/";
+		$pattern = "/^[\s".preg_quote( "()[]{}=?!.:,-_+#~/", "/" )."]$/";
 		for($i = 0; $len > $i; $i ++) {
 			$char = mb_substr ( $value, $i, 1 );
 			if (!preg_match ( $pattern, $char )) {
@@ -123,7 +123,7 @@ class CaseConverter {
 			$encoding = mb_internal_encoding();
 		}
 		$stripChars = "()[]{}=?!.:,-_+\"#~/";
-		$len = strlen ( $stripChars );
+		$len = strlen( $stripChars );
 		for($i = 0; $len > $i; $i ++) {
 			$value = str_replace( $stripChars [$i], " ", $value );
 		}
