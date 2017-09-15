@@ -15,7 +15,13 @@ $converter->convertToCamelCase($input);   // TheQuickBrownFoxJumpsOverTheLazyDog
 $converter->invertCase($input);           // tHE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
 ```
 
-## Resources
+## Online Resources
 
 Get more information and online tools for this implementation on:
 https://en.toolpage.org/cat/text-conversion
+
+* Uppercase converter: https://en.toolpage.org/tool/uppercase
+* Lowercase converter: https://en.toolpage.org/tool/lowercase
+* Camelcase converter: https://en.toolpage.org/tool/camelcase
+* Startcase converter: https://en.toolpage.org/tool/startcase
+* Case inverter: https://en.toolpage.org/tool/case-inverter
