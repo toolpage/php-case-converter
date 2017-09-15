@@ -1,7 +1,7 @@
 # PHP Case Converter
 The PHP Case Converter collection helps changing the cases of an existing texts.
 
-# Usage
+## Usage
 
 ```php
 $converter = new CaseConverter();
@@ -11,3 +11,8 @@ $converter->convertToLowerCase($input); // the quick brown fox jumps over the la
 $converter->convertToStartCase($input); // The Quick Brown Fox Jumps Over The Lazy Dog
 $converter->invertCase($input); // tHE QUICK BROWN FOX JUMPS OVER THE LAZY DOC
 ```
+
+## Resources
+
+Get more information and online tools for this implementation on:
+https://en.toolpage.org/cat/text-conversion
