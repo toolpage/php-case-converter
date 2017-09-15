@@ -1,5 +1,5 @@
 # PHP Case Converter
-The PHP Case Converter collection helps changing the cases of an existing texts.
+The PHP Case Converter collection helps changing the cases of existing texts.
 
 ## Usage
 
