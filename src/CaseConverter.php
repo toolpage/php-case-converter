@@ -42,11 +42,11 @@ class CaseConverter {
 	 * @param string $value        	
 	 * @param string $encoding        	
 	 */
-	function convertToUpperCase(string $value, string $encoding = null) {
+	public function convertToUpperCase(string $value, string $encoding = null) {
 		if ($encoding == null){
 			$encoding = mb_internal_encoding();
 		}
-		return mb_convert_case($value, MB_CASE_UPPER, $mode);
+		return mb_convert_case($value, MB_CASE_UPPER, $encoding);
 	}
 	
 	/**
@@ -58,11 +58,11 @@ class CaseConverter {
 	 * @param string $value        	
 	 * @param string $encoding        	
 	 */
-	function convertToLowerCase(string $value, string $encoding = null) {
+	public function convertToLowerCase(string $value, string $encoding = null) {
 		if ($encoding == null){
 			$encoding = mb_internal_encoding();
 		}
-		return mb_convert_case($value, MB_CASE_LOWER, $mode);
+		return mb_convert_case($value, MB_CASE_LOWER, $encoding);
 	}
 	
 	/**
@@ -71,11 +71,11 @@ class CaseConverter {
 	 * @param string $value        	
 	 * @param string $encoding        	
 	 */
-	function convertToStartCase(string $value, string $encoding = null) {
+	public function convertToStartCase(string $value, string $encoding = null) {
 		if ($encoding == null){
 			$encoding = mb_internal_encoding();
 		}
-		return mb_convert_case($value, MB_CASE_TITLE, $mode);
+		return mb_convert_case($value, MB_CASE_TITLE, $encoding);
 	}
 	
 	/**
@@ -85,7 +85,7 @@ class CaseConverter {
 	 * @param string $encoding        	
 	 * @return string
 	 */
-	function convertToAlternatingCase(string $value, string $encoding = null) {
+	public function convertToAlternatingCase(string $value, string $encoding = null) {
 		if ($encoding == null){
 			$encoding = mb_internal_encoding();
 		}
@@ -118,7 +118,7 @@ class CaseConverter {
 	 * @param string $encoding 
 	 * @return string
 	 */
-	function convertToCamelCase(string $value, string $encoding = null) {
+	public function convertToCamelCase(string $value, string $encoding = null) {
 		if ($encoding == null){
 			$encoding = mb_internal_encoding();
 		}
@@ -127,10 +127,93 @@ class CaseConverter {
 		for($i = 0; $len > $i; $i ++) {
 			$value = str_replace( $stripChars [$i], " ", $value );
 		}
-		$value = mb_convert_case( $value, MB_CASE_TITLE, $mode );
+		$value = mb_convert_case( $value, MB_CASE_TITLE, $encoding );
 		$value = preg_replace( "/\s+/", "", $value );
 		return $value;
 	}
+	
+	/**
+	 * Converts a text into snake case.
+	 * Example: "snake case" into "Snake_Case".
+	 *
+	 * @param string value
+	 * @return string
+	 */
+	public function convertToSnakeCase(string $value, string $encoding = null){
+		if ($encoding == null){
+			$encoding = mb_internal_encoding();
+		}
+		$value = preg_replace("/[\(\)\[\]\{\}\=\?\!\.\:,\-_\+\\\"#~\/]/", " ", $value);
+		$value = CaseConverter::convertToStartCase($value, $encoding);
+		return preg_replace("/\s+/","_",trim($value));
+	}
+
+	/**
+	 * Converts a text into snake case.
+	 * Example: "snake case" into "Snake_Case".
+	 *
+	 * @param string value
+	 * @return string
+	 */
+	public function convertToKebabCase(string $value, string $encoding = null){
+		if ($encoding == null){
+			$encoding = mb_internal_encoding();
+		}
+		$value = preg_replace("/[\(\)\[\]\{\}\=\?\!\.\:,\-_\+\\\"#~\/]/", " ", $value);
+		$value = mb_convert_case($value, MB_CASE_LOWER, $encoding);
+		return preg_replace("/\s+/","-",trim($value));
+	}	
+
+	/**
+	 * Converts a text into studly caps. Studly caps is a text case where the
+	 * capitalization of letters varies randomly.
+	 * Example: "Studly Caps" into "stuDLY CaPS" or "STudLy CAps".
+	 *
+	 * @param string value
+	 * @return string
+	 */
+	public function convertToStudlyCaps($value, $encoding = null) {
+		if ($encoding == null){
+			$encoding = mb_internal_encoding();
+		}
+		$returnValue = "";
+		$numOfFollowingUppercase = 0;
+		$numOfFollowingLowercase = 0;
+		$doCapitalLetter = false;
+		$value = mb_convert_case($value, MB_CASE_LOWER, $encoding);
+		$len = strlen($value);
+		for ($i = 0; $len > $i; $i++) {
+			$c = mb_substr($value, $i, 1, $encoding);
+			if (mb_convert_case( $c, MB_CASE_UPPER, $encoding ) != 
+					mb_convert_case( $c, MB_CASE_LOWER, $encoding )) {
+				if ($numOfFollowingUppercase < 2) {
+					if (mt_rand(1,100) % 2 == 0) {
+						$doCapitalLetter = true;
+						$numOfFollowingUppercase++;
+					} else {
+						$doCapitalLetter = false;
+						$numOfFollowingUppercase = 0;
+					}
+				} else {
+					$doCapitalLetter = false;
+					$numOfFollowingUppercase = 0;
+				}
+				if (!$doCapitalLetter) {
+					$numOfFollowingLowercase++;
+				}
+				if ($numOfFollowingLowercase > 3) {
+					$doCapitalLetter = true;
+					$numOfFollowingLowercase = 0;
+					$numOfFollowingUppercase++;
+				}
+				if ($doCapitalLetter) {
+					$c = mb_convert_case( $c, MB_CASE_UPPER, $encoding );
+				}
+			}
+			$returnValue .= $c;
+		}
+		return $returnValue;
+	}	
 	
 	/**
 	 * Inverts the case of a given text.
@@ -141,7 +224,7 @@ class CaseConverter {
 	 * @param string $encoding 
 	 * @return string
 	 */
-	function invertCase(string $value, string $encoding = null) {
+	public function invertCase(string $value, string $encoding = null) {
 		if ($encoding == null){
 			$encoding = mb_internal_encoding();
 		}
