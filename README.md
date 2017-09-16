@@ -5,7 +5,7 @@ The PHP Case Converter collection helps changing the cases of existing texts.
 
 ```php
 <?php
-reuire_once("CaseConverter.class.php");
+require_once("CaseConverter.php");
 $converter = new CaseConverter();
 
 $input = "The quick brown fox jumps over the lazy dog";
