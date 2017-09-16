@@ -14,6 +14,9 @@ $converter->convertToUpperCase($input);   // THE QUICK BROWN FOX JUMPS OVER THE 
 $converter->convertToLowerCase($input);   // the quick brown fox jumps over the lazy dog
 $converter->convertToStartCase($input);   // The Quick Brown Fox Jumps Over The Lazy Dog
 $converter->convertToCamelCase($input);   // TheQuickBrownFoxJumpsOverTheLazyDog
+$converter->convertToSnakeCase($input);   // The_Quick_Brown_Fox_Jumps_Over_The_Lazy_Dog
+$converter->convertToKebabCase($input);   // the-quick-brown-fox-jumps-over-the-lazy-dog
+$converter->convertToStudlyCaps($input);  // THe QUiCk BRoWn FoX JUMps oVeR thE LazY dOG
 $converter->invertCase($input);           // tHE QUICK BROWN FOX JUMPS OVER THE LAZY DOG
 ```
 
