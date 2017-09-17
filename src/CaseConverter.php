@@ -26,7 +26,7 @@
 /**
  * The text conversion class helps changing the cases of an existing text.
  * Get more information and online tools for this implementation on:
- * https://en.toolpage.org/cat/text-conversion
+ * https://en.toolpage.org/cat/case-converter
  *
  * @author Yves Sorge <yves.sorge@toolpage.org>
  *        
@@ -164,6 +164,18 @@ class CaseConverter {
 		return preg_replace("/\s+/","-",trim($value));
 	}	
 
+	/**
+	 * Converts a text into path case.
+	 * Example: "path case" into "path/case".
+	 *
+	 * @param string value
+	 * @return string
+	 */
+	public function convertToKPathCase(string $value, string $encoding = null){
+		$value = preg_replace("/[\(\)\[\]\{\}\=\?\!\.\:,\-_\+\\\"#~\/]/", " ", $value);
+		return preg_replace("/\s+/","/",trim($value));
+	}	
+	
 	/**
 	 * Converts a text into studly caps. Studly caps is a text case where the
 	 * capitalization of letters varies randomly.
